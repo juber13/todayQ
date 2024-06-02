@@ -7,6 +7,7 @@ import { FaBookmark } from "react-icons/fa";
 
 import { addToCart, addToBookMark, removeFromBookMark } from '../store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { current } from '@reduxjs/toolkit';
 
 
 const Content = () => {
@@ -21,8 +22,9 @@ const Content = () => {
     }
 
     const handleBookMarks = (id, content) => {
-        console.log(bookMarks)
+        const isContentExits = bookMarks.some(item => item._id === id);
         if (!isContentExits) dispatch(addToBookMark(content));
+        else dispatch(removeFromBookMark(id));
     }
 
 
@@ -59,13 +61,7 @@ const Content = () => {
                                 {cart?.some(item => item._id == content._id) ? "Added" : "Add To Cart"}
                             </button>
 
-                            {bookMarks?.some(item => item._id === content._id) ?
-                                (
-                                    <FaBookmark fill='red' onClick={() => dispatch(removeFromBookMark(content._id))} />
-                                )
-                                : (<CiBookmark onClick={() => dispatch(handleBookMarks(content._id, content)} />)
-                            }
-
+                            <CiBookmark onClick={() => handleBookMarks(content._id, content)} fill={`${bookMarks.some(item => item._id == content._id) ? "red" : ""}`} />
                         </div>
                     </div>
                 )

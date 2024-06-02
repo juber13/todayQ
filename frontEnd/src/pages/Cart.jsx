@@ -3,20 +3,21 @@ import React, { useState } from 'react'
 import { MdCurrencyRupee } from "react-icons/md";
 import { CiBookmark } from "react-icons/ci";
 import { useSelector, useDispatch } from 'react-redux';
-import {removeToCart } from '../store/cartSlice';
+import { removeToCart } from '../store/cartSlice';
 
 
 const Cart = () => {
-    const [total , subTotal] =  useState(0);
-    const {cart} = useSelector(store => store.cart);
+    const [total, subTotal] = useState(0);
+    const { cart } = useSelector(store => store.cart);
+    console.log(cart)
     const dispatch = useDispatch();
-    const totalPrice = cart.reduce((acc , curr) => acc + Number(curr.price) , 0);
+    const totalPrice = cart.reduce((acc, curr) => acc + Number(curr.price), 0);
     return (
         <div className='container flex gap-10 justify-evenly'>
             <div className='content-list pt-4 px-3 flex flex-wrap gap-5 flex-grow max-w-[700px]'>
                 {cart.length > 0 ? cart.map((content, index) => {
                     return (
-                        <div className='content shadow-md flex flex-col justify-between border w-[200px] h-[200px] rounded-md p-3' key={index}>
+                        <div key={index} className='content shadow-md flex flex-col justify-between border w-[200px] h-[200px] rounded-md p-3' >
                             <div>
                                 <h1 className='text-sm text-orange-600 mb-3'>{content.title.toUpperCase()}</h1>
                                 <p className='text-sm mb-3'>{content.description}</p>
@@ -37,7 +38,7 @@ const Cart = () => {
 
             {/* ======== subtotal */}
 
-            {cart.length  > 0 &&
+            {cart.length > 0 &&
                 <div className="subtotal pt-4 text-center  ">
                     <table className='w-full h-full border text-xs m-2'>
                         <thead>
