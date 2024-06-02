@@ -13,8 +13,8 @@ const Cart = () => {
     const dispatch = useDispatch();
     const totalPrice = cart.reduce((acc, curr) => acc + Number(curr.price), 0);
     return (
-        <div className='container flex gap-10 justify-evenly'>
-            <div className='content-list pt-4 px-3 flex flex-wrap   gap-5 flex-grow max-w-[700px]'>
+        <div className='container flex gap-5 justify-evenly max-w-3xl m-auto'>
+            <div className='content-list pt-4 px-3 flex flex-wrap gap-5 flex-grow max-w-[700px]'>
                 {cart.length > 0 ? cart.map((content, index) => {
                     return (
                         <div key={index} className='content shadow-md flex flex-col justify-between border w-[200px] h-[200px] rounded-md p-3' >
@@ -38,8 +38,8 @@ const Cart = () => {
             {/* ======== subtotal */}
 
             {cart.length > 0 &&
-                <div className="subtotal pt-4 text-center  ">
-                    <table className='w-full h-full border text-xs m-2'>
+                <div className="subtotal pt-4 text-center max-h-2xl">
+                    <table className='w-full h-full border text-xs mt-2'>
                         <thead>
                             <tr className='border'>
                                 <th>Title</th>
@@ -52,7 +52,7 @@ const Cart = () => {
                             {cart.map(item => {
                                 return (
                                     <>
-                                        <tr className='border p-2 m-3'>
+                                        <tr className='border p-1 m-3'>
                                             <td className='border p-1'>{item.title}</td>
                                             <td className='border p-1'>{item.price}</td>
                                             <td className='border p-1'>{item._id}</td>
@@ -69,7 +69,7 @@ const Cart = () => {
                         </tbody>
                     </table>
 
-                    <button className='border p-2 w-full rounded-md bg-green-600 text-white ml-2'>Checkout</button>
+                    <button className='border p-2 w-full rounded-md bg-green-600 text-white mt-2'>Checkout</button>
                 </div>
             }
         </div>

@@ -4,11 +4,21 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
     initialState: {
         cart: [],
-        bookMarks: []
+        bookMarks: [],
+        data: [],
+        filteredData: []
     },
     name: "cart",
 
     reducers: {
+        addToData: (state, action) => {
+            state.data = action.payload;
+        },
+
+        setFilteredData: (state, action) => {
+            state.filteredData = action.payload;
+        },
+
         addToCart: (state, action) => {
             state.cart.push(action.payload)
         },
@@ -35,6 +45,6 @@ const cartSlice = createSlice({
 });
 
 
-export const { addToCart, removeToCart, addToBookMark, removeFromBookMark } = cartSlice.actions;
+export const { addToCart, removeToCart, addToBookMark, removeFromBookMark, addToData , setFilteredData , filteredData} = cartSlice.actions;
 
 export default cartSlice.reducer;

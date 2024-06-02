@@ -7,8 +7,12 @@ import Content from '../components/Content'
 const Home = () => {
     return (
         <div className='flex gap-10'>
-            <Sidebar />
-            <Content />
+            <div>
+                <Sidebar />
+            </div>
+            <div>
+                <Content />
+            </div>
         </div>
     )
 }

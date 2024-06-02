@@ -5,16 +5,16 @@ import { CiBookmark } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa";
 
 
-import { addToCart, addToBookMark, removeFromBookMark } from '../store/cartSlice';
+import { addToCart, addToBookMark, removeFromBookMark, addToData ,  } from '../store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { current } from '@reduxjs/toolkit';
 
 
 const Content = () => {
-    const [contents, setContent] = useState([])
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
 
-    const { cart, bookMarks } = useSelector(store => store.cart);
+    const { cart, bookMarks , data ,  filteredData} = useSelector(store => store.cart);
 
     const handleCart = (id, content) => {
         const isContentExits = cart.some(item => item._id === id);
@@ -31,9 +31,11 @@ const Content = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true)
                 const res = await fetch('/api/content/contents');
                 const data = await res.json();
-                setContent(data.contents);
+                dispatch(addToData(data.contents));
+                setLoading(false);
             } catch (err) {
                 console.log(err.message)
             }
@@ -43,8 +45,9 @@ const Content = () => {
     }, [])
 
     return (
-        <div className='content-list pt-4 flex flex-wrap gap-5'>
-            {contents && contents.map((content, index) => {
+        <div className='content-list pt-4 flex flex-wrap gap-5 '>
+            {loading && <div className='flex items-center justify-center w-full h-screen'>Loading...</div>}
+            {filteredData && filteredData.map((content, index) => {
                 return (
                     <div className='content shadow-md flex flex-col justify-between border w-[200px] h-[200px] rounded-md p-3' key={index}>
                         <div>
