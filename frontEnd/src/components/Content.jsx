@@ -5,7 +5,7 @@ import { CiBookmark } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa";
 
 
-import { addToCart , addToBookMark  , removeFromBookMark} from '../store/cartSlice';
+import { addToCart, addToBookMark, removeFromBookMark } from '../store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -13,9 +13,7 @@ const Content = () => {
     const [contents, setContent] = useState([])
     const dispatch = useDispatch();
 
-    const {cart , bookMarks} = useSelector(store => store.cart);
-    // console.log(cart)
-    console.log(bookMarks)
+    const { cart, bookMarks } = useSelector(store => store.cart);
 
     const handleCart = (id, content) => {
         const isContentExits = cart.some(item => item._id === id);
@@ -23,7 +21,7 @@ const Content = () => {
     }
 
     const handleBookMarks = (id, content) => {
-        const isContentExits = bookMarks.some(item => item._id === id);
+        console.log(bookMarks)
         if (!isContentExits) dispatch(addToBookMark(content));
     }
 
@@ -31,7 +29,6 @@ const Content = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-
                 const res = await fetch('/api/content/contents');
                 const data = await res.json();
                 setContent(data.contents);
@@ -59,27 +56,16 @@ const Content = () => {
                         </div>
                         <div className='flex items-center  justify-between'>
                             <button onClick={() => handleCart(content._id, content)} className='btn border p-2 text-xs rounded-md'>
-                               {cart.some(item => item._id == content._id) ? "Added" : "Add To Cart"}
+                                {cart?.some(item => item._id == content._id) ? "Added" : "Add To Cart"}
                             </button>
 
-                            { bookMarks.some(item => item._id == content._id) ? 
+                            {bookMarks?.some(item => item._id === content._id) ?
                                 (
-                                <FaBookmark fill='red'  onClick={() => dispatch(removeFromBookMark(content._id))}/>
+                                    <FaBookmark fill='red' onClick={() => dispatch(removeFromBookMark(content._id))} />
                                 )
-                                : (<CiBookmark   onClick={() => handleBookMarks(content._id, content)}/>)
+                                : (<CiBookmark onClick={() => dispatch(handleBookMarks(content._id, content)} />)
                             }
 
-{/* {state.cart.some((pro) => pro.id === item.id) ?
-          (
-            <button className="btn add_card_button" onClick={() => dispatch({ type: "REMOVE_TO_CART", payload: item })}>Remove To Cart</button>
-          ) : (
-            <button
-              className="btn add_card_button"
-              onClick={() => dispatch({ type: "ADD_TO_CART", payload: item })}
-            >
-              Add To Card
-            </button>
-          )} */}
                         </div>
                     </div>
                 )

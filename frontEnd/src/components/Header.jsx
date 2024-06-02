@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const Header = () => {
 
-    const cart = useSelector(store => store.cart);
+    const {cart} = useSelector(store => store.cart);
 
     return (
         <div className='p-3 flex justify-between shadow-md'>

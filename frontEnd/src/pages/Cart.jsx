@@ -8,13 +8,13 @@ import {removeToCart } from '../store/cartSlice';
 
 const Cart = () => {
     const [total , subTotal] =  useState(0);
-    const contents = useSelector(store => store.cart);
+    const {cart} = useSelector(store => store.cart);
     const dispatch = useDispatch();
-    const totalPrice = contents.reduce((acc , curr) => acc + Number(curr.price) , 0);
+    const totalPrice = cart.reduce((acc , curr) => acc + Number(curr.price) , 0);
     return (
         <div className='container flex gap-10 justify-evenly'>
             <div className='content-list pt-4 px-3 flex flex-wrap gap-5 flex-grow max-w-[700px]'>
-                {contents.length > 0 ? contents.map((content, index) => {
+                {cart.length > 0 ? cart.map((content, index) => {
                     return (
                         <div className='content shadow-md flex flex-col justify-between border w-[200px] h-[200px] rounded-md p-3' key={index}>
                             <div>
@@ -37,7 +37,7 @@ const Cart = () => {
 
             {/* ======== subtotal */}
 
-            {contents.length  > 0 &&
+            {cart.length  > 0 &&
                 <div className="subtotal pt-4 text-center  ">
                     <table className='w-full h-full border text-xs m-2'>
                         <thead>
@@ -49,7 +49,7 @@ const Cart = () => {
                         </thead>
 
                         <tbody>
-                            {contents.map(item => {
+                            {cart.map(item => {
                                 return (
                                     <>
                                         <tr className='border p-2 m-3'>
