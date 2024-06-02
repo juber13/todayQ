@@ -14,7 +14,7 @@ const Cart = () => {
     const totalPrice = cart.reduce((acc, curr) => acc + Number(curr.price), 0);
     return (
         <div className='container flex gap-10 justify-evenly'>
-            <div className='content-list pt-4 px-3 flex flex-wrap gap-5 flex-grow max-w-[700px]'>
+            <div className='content-list pt-4 px-3 flex flex-wrap   gap-5 flex-grow max-w-[700px]'>
                 {cart.length > 0 ? cart.map((content, index) => {
                     return (
                         <div key={index} className='content shadow-md flex flex-col justify-between border w-[200px] h-[200px] rounded-md p-3' >
@@ -29,7 +29,6 @@ const Cart = () => {
                             </div>
                             <div className='flex items-center  justify-between'>
                                 <button onClick={() => dispatch(removeToCart(content._id))} className='btn border p-2 text-xs rounded-md'>Remove</button>
-                                <CiBookmark />
                             </div>
                         </div>
                     )

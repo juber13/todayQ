@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/Home"
 import Cart from "./pages/Cart"
 import AddContent from "./pages/AddContent"
+import BookMarks from "./pages/BookMarks"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/upload" element={<AddContent />} />
+        <Route path="/bookmarks" element={<BookMarks />} />
       </Routes>
     </BrowserRouter>
   )
