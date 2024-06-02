@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import { MdCurrencyRupee } from "react-icons/md";
 import { CiBookmark } from "react-icons/ci";
+import { FaBookmark } from "react-icons/fa";
 
-import { addToCart } from '../store/cartSlice';
+
+import { addToCart , addToBookMark  , removeFromBookMark} from '../store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -11,12 +13,18 @@ const Content = () => {
     const [contents, setContent] = useState([])
     const dispatch = useDispatch();
 
-    const store = useSelector(store => store.cart);
-    console.log(store);
+    const {cart , bookMarks} = useSelector(store => store.cart);
+    // console.log(cart)
+    console.log(bookMarks)
 
     const handleCart = (id, content) => {
-        const isContentExits = store.some(item => item._id === id);
-        if (!isContentExits) dispatch(addToCart(content))
+        const isContentExits = cart.some(item => item._id === id);
+        if (!isContentExits) dispatch(addToCart(content));
+    }
+
+    const handleBookMarks = (id, content) => {
+        const isContentExits = bookMarks.some(item => item._id === id);
+        if (!isContentExits) dispatch(addToBookMark(content));
     }
 
 
@@ -35,8 +43,6 @@ const Content = () => {
         fetchData();
     }, [])
 
-    console.log(contents)
-
     return (
         <div className='content-list pt-4 flex flex-wrap gap-5'>
             {contents && contents.map((content, index) => {
@@ -52,8 +58,28 @@ const Content = () => {
                             <hr />
                         </div>
                         <div className='flex items-center  justify-between'>
-                            <button onClick={() => handleCart(content._id, content)} className='btn border p-2 text-xs rounded-md'>Add To Cart</button>
-                            <CiBookmark />
+                            <button onClick={() => handleCart(content._id, content)} className='btn border p-2 text-xs rounded-md'>
+                               {cart.some(item => item._id == content._id) ? "Added" : "Add To Cart"}
+                            </button>
+
+                            { bookMarks.some(item => item._id == content._id) ? 
+                                (
+                                <FaBookmark fill='red'  onClick={() => dispatch(removeFromBookMark(content._id))}/>
+                                )
+                                : (<CiBookmark   onClick={() => handleBookMarks(content._id, content)}/>)
+                            }
+
+{/* {state.cart.some((pro) => pro.id === item.id) ?
+          (
+            <button className="btn add_card_button" onClick={() => dispatch({ type: "REMOVE_TO_CART", payload: item })}>Remove To Cart</button>
+          ) : (
+            <button
+              className="btn add_card_button"
+              onClick={() => dispatch({ type: "ADD_TO_CART", payload: item })}
+            >
+              Add To Card
+            </button>
+          )} */}
                         </div>
                     </div>
                 )

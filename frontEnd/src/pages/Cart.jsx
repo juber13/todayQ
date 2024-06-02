@@ -1,18 +1,20 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useState } from 'react'
 import { MdCurrencyRupee } from "react-icons/md";
 import { CiBookmark } from "react-icons/ci";
 import { useSelector, useDispatch } from 'react-redux';
+import {removeToCart } from '../store/cartSlice';
 
 
 const Cart = () => {
-
+    const [total , subTotal] =  useState(0);
     const contents = useSelector(store => store.cart);
-    console.log(contents);
+    const dispatch = useDispatch();
+    const totalPrice = contents.reduce((acc , curr) => acc + Number(curr.price) , 0);
     return (
-        <div className='container flex gap-10 justify-around'>
+        <div className='container flex gap-10 justify-evenly'>
             <div className='content-list pt-4 px-3 flex flex-wrap gap-5 flex-grow max-w-[700px]'>
-                {contents && contents.map((content, index) => {
+                {contents.length > 0 ? contents.map((content, index) => {
                     return (
                         <div className='content shadow-md flex flex-col justify-between border w-[200px] h-[200px] rounded-md p-3' key={index}>
                             <div>
@@ -25,42 +27,49 @@ const Cart = () => {
                                 <hr />
                             </div>
                             <div className='flex items-center  justify-between'>
-                                <button onClick={() => handleCart(content._id, content)} className='btn border p-2 text-xs rounded-md'>Add To Cart</button>
+                                <button onClick={() => dispatch(removeToCart(content._id))} className='btn border p-2 text-xs rounded-md'>Remove</button>
                                 <CiBookmark />
                             </div>
                         </div>
                     )
-                })}
+                }) : <div className='text-center w-full mt-60 text-4xl drop-shadow-md'>Empty Cart!</div>}
             </div>
 
             {/* ======== subtotal */}
 
             {contents.length  > 0 &&
-                <div className="subtoal pt-4 text-center ">
+                <div className="subtotal pt-4 text-center  ">
                     <table className='w-full h-full border text-xs m-2'>
-                        <tr className='border'>
-                            <th>Title</th>
-                            <th>Price</th>
-                            <th>Id</th>
-                        </tr>
+                        <thead>
+                            <tr className='border'>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>Id</th>
+                            </tr>
+                        </thead>
 
-                        {contents.map(item => {
-                            return (
-                                <>
-                                    <tr className='border p-2 m-3'>
-                                        <td className='border p-1'>{item.title}</td>
-                                        <td className='border p-1'>{item.price}</td>
-                                        <td className='border p-1'>{item._id}</td>
-                                    </tr>
-                                </>
-                            )
-                        })}
+                        <tbody>
+                            {contents.map(item => {
+                                return (
+                                    <>
+                                        <tr className='border p-2 m-3'>
+                                            <td className='border p-1'>{item.title}</td>
+                                            <td className='border p-1'>{item.price}</td>
+                                            <td className='border p-1'>{item._id}</td>
+                                        </tr>
+                                    </>
+                                )
+                            })}
 
-                        <tr>
-                            <td className='border font-bold'>SubTotal</td>
-                            <td className='text-center col-span-2'>Total</td>
-                        </tr>
+                            <tr>
+                                <td className='border font-bold px-3'>SubTotal</td>
+                                <td className='text-center w-full text-md font-bold'>{totalPrice}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
                     </table>
+
+                    <button className='border p-2 w-full rounded-md bg-green-600 text-white ml-2'>Checkout</button>
                 </div>
             }
         </div>
