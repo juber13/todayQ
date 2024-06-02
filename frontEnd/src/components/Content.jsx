@@ -5,7 +5,7 @@ import { CiBookmark } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa";
 
 
-import { addToCart, addToBookMark, removeFromBookMark, addToData ,  } from '../store/cartSlice';
+import { addToCart, addToBookMark, removeFromBookMark, addToData , setFilteredData } from '../store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { current } from '@reduxjs/toolkit';
 
@@ -29,12 +29,15 @@ const Content = () => {
 
 
     useEffect(() => {
+        console.log('useEffect')
         const fetchData = async () => {
             try {
                 setLoading(true)
                 const res = await fetch('/api/content/contents');
                 const data = await res.json();
                 dispatch(addToData(data.contents));
+                dispatch(setFilteredData(data.contents));
+                
                 setLoading(false);
             } catch (err) {
                 console.log(err.message)
@@ -47,7 +50,7 @@ const Content = () => {
     return (
         <div className='content-list pt-4 flex flex-wrap gap-5 '>
             {loading && <div className='flex items-center justify-center w-full h-screen'>Loading...</div>}
-            {filteredData && filteredData.map((content, index) => {
+            {data && data.map((content, index) => {
                 return (
                     <div className='content shadow-md flex flex-col justify-between border w-[200px] h-[200px] rounded-md p-3' key={index}>
                         <div>
