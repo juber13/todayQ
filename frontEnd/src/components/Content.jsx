@@ -1,20 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { MdCurrencyRupee } from "react-icons/md";
 import { CiBookmark } from "react-icons/ci";
-import { FaBookmark } from "react-icons/fa";
 
 
 import { addToCart, addToBookMark, removeFromBookMark, addToData , setFilteredData } from '../store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { current } from '@reduxjs/toolkit';
 
 
 const Content = () => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
 
-    const { cart, bookMarks , data ,  filteredData} = useSelector(store => store.cart);
+    const { cart, bookMarks , data } = useSelector(store => store.cart);
 
     const handleCart = (id, content) => {
         const isContentExits = cart.some(item => item._id === id);
@@ -37,7 +36,6 @@ const Content = () => {
                 const data = await res.json();
                 dispatch(addToData(data.contents));
                 dispatch(setFilteredData(data.contents));
-                
                 setLoading(false);
             } catch (err) {
                 console.log(err.message)
@@ -45,6 +43,7 @@ const Content = () => {
         }
 
         fetchData();
+        
     }, [])
 
     return (

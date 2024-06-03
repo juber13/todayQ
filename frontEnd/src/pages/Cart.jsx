@@ -7,7 +7,6 @@ import { removeToCart } from '../store/cartSlice';
 
 
 const Cart = () => {
-    const [total, subTotal] = useState(0);
     const { cart } = useSelector(store => store.cart);
     console.log(cart)
     const dispatch = useDispatch();
