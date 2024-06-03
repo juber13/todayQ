@@ -4,6 +4,7 @@ import { MdCurrencyRupee } from "react-icons/md";
 import { CiBookmark } from "react-icons/ci";
 import { useSelector, useDispatch } from 'react-redux';
 import { removeToCart } from '../store/cartSlice';
+import { Link } from 'react-router-dom';
 
 
 const Cart = () => {
@@ -68,7 +69,9 @@ const Cart = () => {
                         </tbody>
                     </table>
 
-                    <button className='border p-2 w-full rounded-md bg-green-600 text-white mt-2'>Checkout</button>
+                    <Link to="/payment">
+                        <button className='border p-2 w-full rounded-md bg-green-600 text-white mt-2'>Checkout</button>
+                    </Link>
                 </div>
             }
         </div>

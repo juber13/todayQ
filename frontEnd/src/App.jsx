@@ -7,7 +7,7 @@ import Home from "./pages/Home"
 import Cart from "./pages/Cart"
 import AddContent from "./pages/AddContent"
 import BookMarks from "./pages/BookMarks"
-
+import Payment from "./pages/Payment"
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +17,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/upload" element={<AddContent />} />
         <Route path="/bookmarks" element={<BookMarks />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </BrowserRouter>
   )

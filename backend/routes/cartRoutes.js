@@ -1,6 +1,8 @@
-import { router } from "express";
+import express from 'express'
 
-import { transactionDetail } from "../controllers/cartController";
+const router = express.Router();
+
+import { transactionDetail } from "../controllers/cartController.js";
 
 router.post('/saveDetail', transactionDetail)
 

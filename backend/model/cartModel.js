@@ -2,24 +2,28 @@ import mongoose from "mongoose";
 
 
 const transactionSchema = new mongoose.Schema({
-  contentOfferingId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'ContentOffering',
+  name: {
+    type: String,
     required: true
   },
 
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
+  amountdPaid : {
+    type : Number,
+    required : true
+  },
+
+  cardNumber: {
+    type: Number,
     ref: 'User',
     required: true
   },
 
-  price: {
+  cvv: {
     type: Number,
     required: true
   },
 
-  paymentMethod: {
+  expiry_date: {
     type: String,
     required: true
   },
@@ -29,21 +33,13 @@ const transactionSchema = new mongoose.Schema({
     required: true
   },
 
-  status: {
-    type: String,
-    enum: ['pending', 'completed', 'refunded'],
-    default: 'pending'
-  },
+
 
   createdAt: {
     type: Date,
     default: Date.now
   },
 
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);

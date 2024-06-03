@@ -24,8 +24,11 @@ app.use(express.urlencoded({ extended: true }));
 
 import userRouter from './routes/userRoutes.js';
 import contentRouter from './routes/contentRoutes.js'
+import cartRoutesRoute from './routes/cartRoutes.js'
+
 app.use('/api/user', userRouter)
 app.use('/api/content', contentRouter)
+app.use('/api/payment', cartRoutesRoute)
 
 
 
