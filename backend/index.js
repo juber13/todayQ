@@ -32,10 +32,7 @@ app.get("/" , (req, res) => {
     res.send("<h1>Hello </h1>");
     res.end();
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> 0cf63f55204345d9518d6db343924aae9a770416
 app.use('/api/user', userRouter)
 app.use('/api/content', contentRouter)
 app.use('/api/payment', cartRoutesRoute)
