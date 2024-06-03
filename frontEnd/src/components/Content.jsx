@@ -32,7 +32,7 @@ const Content = () => {
         const fetchData = async () => {
             try {
                 setLoading(true)
-                const res = await fetch('/api/content/contents');
+                const res = await fetch('today-q-apis.vercel.app/contents');
                 const data = await res.json();
                 dispatch(addToData(data.contents));
                 dispatch(setFilteredData(data.contents));

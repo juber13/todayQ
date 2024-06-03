@@ -26,6 +26,10 @@ import userRouter from './routes/userRoutes.js';
 import contentRouter from './routes/contentRoutes.js'
 import cartRoutesRoute from './routes/cartRoutes.js'
 
+app.get("/" , (req, res) => {
+    res.send("<h1>Hello </h1>");
+    res.end();
+});
 app.use('/api/user', userRouter)
 app.use('/api/content', contentRouter)
 app.use('/api/payment', cartRoutesRoute)
