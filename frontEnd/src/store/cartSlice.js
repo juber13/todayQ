@@ -41,10 +41,14 @@ const cartSlice = createSlice({
                 state.bookMarks.splice(index, 1);
             }
         },
+
+        resetCart : (state , action) => {
+            state.cart = [];
+        }
     }
 });
 
 
-export const { addToCart, removeToCart, addToBookMark, removeFromBookMark, addToData , setFilteredData , filteredData} = cartSlice.actions;
+export const { addToCart, removeToCart, addToBookMark, removeFromBookMark, addToData , setFilteredData , filteredData , resetCart} = cartSlice.actions;
 
 export default cartSlice.reducer;

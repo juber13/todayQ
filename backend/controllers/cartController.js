@@ -4,13 +4,13 @@ import Transaction from "../model/cartModel.js";
 const transactionDetail = async (req, res) => {
     try {
 
-        const { transactionId, userName, price, contentName } = req.body;
+        const { name, cardNumber, cvv, expiry_date , totalPrice , transactionId } = req.body;
 
-        if ([transactionId, userName, price, contentName].some(field => field?.trim() === "")) {
+        if ([name, cardNumber, cvv, expiry_date].some(field => field?.trim() === "")) {
             return res.staus(400).json({ success: false, message: "All fields are rquired" });
         }
 
-        const newTransaction = await Transaction.create({ transactionId, userName, price, contentName });
+        const newTransaction = await Transaction.create({ name, cardNumber, cvv, expiry_date , totalPrice , transactionId});
 
         return res.status(200).json({
             success: true,

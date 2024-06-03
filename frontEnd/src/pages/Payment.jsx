@@ -2,11 +2,20 @@
 import React, { useState } from 'react';
 import { PiSpinnerGap } from 'react-icons/pi';
 import { Toaster, toast } from 'react-hot-toast';
+import { useSelector , useDispatch } from 'react-redux';
+import { resetCart } from '../store/cartSlice';
+
+import {useNavigate} from 'react-router-dom'
 
 const Payment = () => {
     const [formData, setFormData] = useState({ name: '', cardNumber: '', cvv: '', expiry_date: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const {cart} = useSelector(store => store.cart);
+    const totalPrice = cart.reduce((acc, curr) => acc + Number(curr.price), 0);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,17 +25,26 @@ const Payment = () => {
         }));
     };
 
+    function generateTransactionID() {
+        // Generate a random string
+        let transactionID = Math.random().toString(36).substring(2, 12);
+    
+        transactionID += "-" + Date.now();
+        return transactionID;
+      }
+      
 
 
     const makePayment = async () => {
+        let transactionId = generateTransactionID();
         try {
             setLoading(true);
-            const res = await fetch('/api/content/upload', {
+            const res = await fetch('/api/payment/saveDetail', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({...formData , totalPrice , transactionId}),
             });
 
             const data = await res.json();
@@ -36,7 +54,6 @@ const Payment = () => {
                 toast.error('Error');
             } else {
                 // Handle successful upload
-                toast.success('Uploded');
                 setFormData({ name: '', cardNumber: '', cvv: '', expiry_date: '' });
             }
         } catch (err) {
@@ -60,8 +77,12 @@ const Payment = () => {
 
         if (isValid) {
             // All fields have a value, proceed with form submission
-            uploadContent();
-            console.log("asdfa");
+            makePayment();
+            toast.success("Payment successfull");
+            setTimeout(() => {
+                   navigate('/');
+                   dispatch(resetCart([]));
+            },2000)
         } else {
             // Display an error message
             setError('Please fill in all the required fields.');
@@ -90,8 +111,6 @@ const Payment = () => {
                                 placeholder="Card Holder Name"
                                 className="p-2 rounded-md w-full required: outline-none border"
                                 value={formData.title}
-
-
                             />
                         </div>
 
@@ -101,7 +120,7 @@ const Payment = () => {
                             </label>
                             <   input type='text'
                                 onChange={handleChange}
-                                name="description"
+                                name="cardNumber"
                                 cols="40"
                                 rows="4"
                                 placeholder="xxxx-xxxx-xxxx-xxxx"
@@ -149,7 +168,7 @@ const Payment = () => {
                                 Pay {loading && <PiSpinnerGap className="animate-spin" />}
                             </button>
 
-                            <h4 className='border px-3 p-2 rounded-md font-bold text-blue-800'>Total : {1000}</h4>
+                            <h4 className='border px-3 p-2 rounded-md font-bold text-blue-800'>Total : {totalPrice}</h4>
                         </div>
                     </form>
                 </div>

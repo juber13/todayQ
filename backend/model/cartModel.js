@@ -7,19 +7,23 @@ const transactionSchema = new mongoose.Schema({
     required: true
   },
 
-  amountdPaid : {
-    type : Number,
+  totalPrice : {
+    type : String,
     required : true
   },
 
+  transactionId : {
+    type : String,
+    required : true,
+  },
+
   cardNumber: {
-    type: Number,
-    ref: 'User',
+    type: String,
     required: true
   },
 
   cvv: {
-    type: Number,
+    type: String,
     required: true
   },
 
@@ -27,12 +31,6 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-
-  transactionDate: {
-    type: Date,
-    required: true
-  },
-
 
 
   createdAt: {
