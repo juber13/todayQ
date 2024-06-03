@@ -1,8 +1,39 @@
-# React + Vite
+# Search Recipe App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Project Link
 
-Currently, two official plugins are available:
+[Hosted](https://ecomsss.netlify.app/)
+Hosted Link <br>
+Table of Contents <br>
+Features<br>
+Screenshots<br>
+Tools used to build the project<br>
+Building / package.json scripts<br>
+Challenges Faced
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stackes used
+#React
+#Redux
+#exprsss
+#mongodb
+
+
+## Features
+payment functionality functionality<br>
+Fully responsive<br>
+filter out the products<br>
+seamless filter function with debounce functionality<br>
+Add to cart<br>
+remove products from cart list<br>
+Proper semantic tags used for accessibility
+
+## Screenshots
+
+![Alt text](./images/Screenshot%202024-06-03%20132935.png)
+![Alt text](./images/Screenshot%202024-06-03%20132953.png)
+![Alt text](./images/Screenshot%202024-06-03%20133007.png)
+
+
+## Challenges Faced
+add extra id with into api data<br>
+add favourite products into cart<br>
